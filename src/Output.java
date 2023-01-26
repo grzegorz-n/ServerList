@@ -3,8 +3,8 @@ import java.io.PrintStream;
 import java.net.Socket;
 
 public class Output extends Thread{
-    Socket socket;
-    PrintStream output;
+    private Socket socket;
+    private PrintStream output;
 
     public Output(Socket socket) {
         this.socket = socket;

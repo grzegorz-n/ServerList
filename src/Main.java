@@ -16,15 +16,12 @@ public class Main {
         try {
             serverSocket = new ServerSocket(5000);
 //            Czekam na nowego klienta
-            int i = 0;
             while (true) {
                 socket = serverSocket.accept();
                 output = new PrintStream(socket.getOutputStream());
                 input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 name = input.readLine();
                 write(name, list, output, socket, input);
-                i++;
-
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -39,9 +36,12 @@ public class Main {
             }
         }
         if (value) {
-            list.add(new Communication(new User(name), socket, list));
+            User user = new User(name);
             output.println("ADDED");
             output.flush();
+            Communication communication = new Communication(user, socket, list);
+            list.add(communication);
+            communication.sendList();
         } else {
             output.println("EXIST");
             output.flush();
