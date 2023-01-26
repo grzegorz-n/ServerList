@@ -15,8 +15,8 @@ public class Input extends Thread {
     }
     public void run() {
         try {
+            input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             while (true) {
-                input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 message = input.readLine();
                 communication.senMessage(message);
             }
